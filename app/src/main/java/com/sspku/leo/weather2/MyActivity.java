@@ -1,6 +1,7 @@
 package com.sspku.leo.weather2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import sspku.leo.bean.TodayWeather;
 public class MyActivity extends Activity implements View.OnClickListener {
 
     private ImageView mUpdateBtn;
+    private ImageView mCitySelect;
     private static final int UPDATE_TODAY_WEATHER = 1;
 
 
@@ -54,6 +56,9 @@ public class MyActivity extends Activity implements View.OnClickListener {
         mUpdateBtn = (ImageView)findViewById(R.id.title_update_btn);
         mUpdateBtn.setOnClickListener(this);
 
+        mCitySelect = (ImageView)findViewById(R.id.title_city_manager);
+        mCitySelect.setOnClickListener(this);
+
 
 
         if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE) {
@@ -68,6 +73,10 @@ public class MyActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view){
+        if(view.getId() == R.id.title_city_manager){
+            Intent i = new Intent(this, SelectCity.class);
+            startActivityForResult(i, 1);
+        }
         if(view.getId() == R.id.title_update_btn){
             SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
             String cityCode = sharedPreferences.getString("main_city_code", "101010100");
@@ -80,6 +89,24 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 Toast.makeText(MyActivity.this,"请检查网络连接！",Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(requestCode == 1 && resultCode == RESULT_OK) {
+            String newCityCode = data.getStringExtra("cityCode");
+            Log.d("myWeather", "城市代码为"+newCityCode);
+
+            if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE) {
+                Log.d("myWeather", "网络OK");
+                queryWeatherCode(newCityCode);
+            }else
+            {
+                Log.d("myWeather", "请检查网络连接");
+                Toast.makeText(MyActivity.this,"请检查网络连接！",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
     }
 
     /**
