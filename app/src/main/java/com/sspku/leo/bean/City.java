@@ -1,4 +1,4 @@
-package sspku.leo.bean;
+package com.sspku.leo.bean;
 
 public class City {
     private String province;

@@ -16,10 +16,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import org.xmlpull.v1.*;
 
-import sspku.leo.util.NetUtil;
-import sspku.leo.bean.TodayWeather;
+import com.sspku.leo.util.NetUtil;
+import com.sspku.leo.bean.TodayWeather;
 
 public class MyActivity extends Activity implements View.OnClickListener {
 

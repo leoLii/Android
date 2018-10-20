@@ -1,4 +1,4 @@
-package sspku.leo.util;
+package com.sspku.leo.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

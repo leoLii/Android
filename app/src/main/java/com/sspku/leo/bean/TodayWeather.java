@@ -1,4 +1,4 @@
-package sspku.leo.bean;
+package com.sspku.leo.bean;
 import org.xmlpull.v1.*;
 import android.util.Log;
 
