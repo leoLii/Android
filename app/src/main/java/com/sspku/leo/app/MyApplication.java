@@ -44,9 +44,9 @@ public class MyApplication extends Application{
             i++;
             String cityName = city.getCity();
             String cityCode = city.getNumber();
-            Log.d(TAG,cityCode+":"+cityName);
+            //Log.d(TAG,cityCode+":"+cityName);
         }
-        Log.d(TAG,"i="+i);
+        //Log.d(TAG,"i="+i);
         return true;
     }
     public List<City> getCityList() {

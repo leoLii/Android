@@ -31,6 +31,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
             pmQualityTv,
             temperatureTv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg;
+    private Intent cityInfo = new Intent();
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -108,10 +109,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
 
     }
 
-    /**
-     *
-     * @param cityCode
-     */
+
 
     private void queryWeatherCode(String cityCode) {
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
@@ -130,8 +128,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
                     con.setReadTimeout(8000);
                     InputStream in = con.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder response = new StringBuilder()
-                            ;
+                    StringBuilder response = new StringBuilder();
                     String str;
                     while((str=reader.readLine()) != null){
                         response.append(str);
