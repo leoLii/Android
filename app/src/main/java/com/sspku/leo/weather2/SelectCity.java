@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class SelectCity extends Activity implements View.OnClickListener {
 
 
@@ -41,6 +43,8 @@ public class SelectCity extends Activity implements View.OnClickListener {
     private String returnCityName;
     private String returnCityCode;
     private TextView cityNameTop;
+    private static String currentCityName = "北京";
+    private static String currentCityCode = "101010100";
 
 
     @Override
@@ -61,12 +65,6 @@ public class SelectCity extends Activity implements View.OnClickListener {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.title_back:
-                Intent i = new Intent();
-                if(returnCityCode != null)
-                    i.putExtra("cityCode", returnCityCode);
-                else
-                    i.putExtra("cityCode", "101010100");
-                setResult(RESULT_OK, i);
                 finish();
                 break;
             default:
@@ -140,7 +138,13 @@ public class SelectCity extends Activity implements View.OnClickListener {
     }
 
     public void initViews(){
+        Intent i = getIntent();
+        i.setClass(this, MyActivity.class);
+        //currentCityCode = i.getStringExtra("currentCityCode");
+        //currentCityName = i.getStringExtra("currentCityName");
+        //Log.d("weather", "currentcity:"+currentCityName+"code:"+currentCityCode);
         cityNameTop = (TextView)findViewById(R.id.title_name);
+        cityNameTop.setText("当前城市：" + currentCityName);
         mListView = (ListView)findViewById(R.id.city_list);
         mBackBtn = (ImageView)findViewById(R.id.title_back);
         mBackBtn.setOnClickListener(this);
@@ -153,7 +157,15 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 returnCityName = (String)cityName.get(i);
                 returnCityCode = (String)cityNum.get(i);
                 cityNameTop.setText("当前城市：" + returnCityName);
-                Toast.makeText(SelectCity.this, "城市名称："+cityName.get(i)+"城市编号："+cityNum.get(i),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent();
+                if(returnCityCode != null)
+                    intent.putExtra("cityCode", returnCityCode);
+                else
+                    intent.putExtra("cityCode", currentCityCode);
+                setResult(RESULT_OK, intent);
+                currentCityCode = returnCityCode;
+                currentCityName = returnCityName;
+                finish();
             }
         });
     }

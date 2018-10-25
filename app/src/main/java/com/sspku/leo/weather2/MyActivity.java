@@ -20,6 +20,8 @@ import java.net.URL;
 import com.sspku.leo.util.NetUtil;
 import com.sspku.leo.bean.TodayWeather;
 
+import static android.content.ContentValues.TAG;
+
 public class MyActivity extends Activity implements View.OnClickListener {
 
     private ImageView mUpdateBtn;
@@ -31,7 +33,10 @@ public class MyActivity extends Activity implements View.OnClickListener {
             pmQualityTv,
             temperatureTv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg;
-    private Intent cityInfo = new Intent();
+    private String returnCityName;
+    private String returnCityCode;
+    private String newCityCode;
+    private String newCityName;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -74,12 +79,16 @@ public class MyActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view){
         if(view.getId() == R.id.title_city_manager){
-            Intent i = new Intent(this, SelectCity.class);
-            startActivityForResult(i, 1);
+            //Intent i = new Intent();
+            //i.putExtra("currentCityCode", newCityCode);
+            //i.putExtra("currentCityName",newCityName);
+            //setResult(RESULT_OK, i);
+            Intent intent = new Intent(this, SelectCity.class);
+            startActivityForResult(intent, 1);
         }
         if(view.getId() == R.id.title_update_btn){
             SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-            String cityCode = sharedPreferences.getString("main_city_code", "101010100");
+            String cityCode = sharedPreferences.getString("main_city_code",returnCityCode);
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE) {
                 Log.d("myWeather", "网络OK");
                 queryWeatherCode(cityCode);
@@ -93,8 +102,11 @@ public class MyActivity extends Activity implements View.OnClickListener {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 1 && resultCode == RESULT_OK) {
-            String newCityCode = data.getStringExtra("cityCode");
+            newCityCode = data.getStringExtra("cityCode");
+            newCityName = data.getStringExtra("cityName");
             Log.d("myWeather", "城市代码为"+newCityCode);
+            returnCityCode = data.getStringExtra("cityCode");
+            returnCityName = data.getStringExtra("cityName");
 
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORK_NONE) {
                 Log.d("myWeather", "网络OK");
