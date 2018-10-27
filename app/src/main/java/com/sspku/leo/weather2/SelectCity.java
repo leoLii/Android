@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sspku.leo.ViewsOverride.ClearEditText;
 import com.sspku.leo.bean.City;
 import com.sspku.leo.db.CityDB;
 
@@ -45,6 +48,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
     private TextView cityNameTop;
     private static String currentCityName = "北京";
     private static String currentCityCode = "101010100";
+    private ClearEditText mClearEditText;
 
 
     @Override
@@ -149,7 +153,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         mBackBtn = (ImageView)findViewById(R.id.title_back);
         mBackBtn.setOnClickListener(this);
 
-        ArrayAdapter<String>mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
+        final ArrayAdapter<String>mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,7 +172,26 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 finish();
             }
         });
+        mClearEditCity = (ClearEditText)findViewById(R.id.searchCity);
+        mClearEditCity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //filterData(charSequence.toString());
+                mListView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
+
 
 
 }
