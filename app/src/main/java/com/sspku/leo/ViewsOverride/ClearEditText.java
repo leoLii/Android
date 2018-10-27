@@ -45,21 +45,17 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
         addTextChangedListener(this);
     }
 
-    /**
-     * 控制EditText右边制删除按钮的显示、隐藏
-     */
+
+    //控制EditText右边制删除按钮的显示、隐藏
+
     private void setClearIcon(boolean isShow) {
         Drawable rightDrawable = isShow ? mClearDrawable : null;
         setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1],
                 rightDrawable, getCompoundDrawables()[3]);
     }
 
-    /**
-     * 有焦点，并文本长度大于0则显示删除按钮
-     *
-     * @param v
-     * @param hasFocus
-     */
+    //有焦点，并文本长度大于0则显示删除按钮
+
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
@@ -69,15 +65,8 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
         }
     }
 
-    /**
-     * 文本内容变化时回调
-     * 当文本长度大于0时显示删除按钮， 否则隐藏
-     *
-     * @param text
-     * @param start
-     * @param lengthBefore
-     * @param lengthAfter
-     */
+    //文本内容变化时回调
+    //当文本长度大于0时显示删除按钮， 否则隐藏
     @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
@@ -94,12 +83,9 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
 
     }
 
-    /**
-     * 通过手指的触摸位置模式删除按钮的点击事件
-     *
-     * @param event
-     * @return
-     */
+
+    //通过手指的触摸位置模式删除按钮的点击事件
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (getCompoundDrawables()[2] != null) {
@@ -120,12 +106,9 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
     }
 
 
-    /**
-     * EditText抖动
-     *
-     * @param counts
-     * @return
-     */
+
+    //EditText抖动
+
     public void startShake(int counts) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
         translateAnimation.setInterpolator(new CycleInterpolator(counts));

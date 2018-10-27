@@ -28,8 +28,10 @@ public class MyApplication extends Application{
         initCityList();
     }
 
+    //初始化城市列表
     private void initCityList(){
         myCityList = new ArrayList<City>();
+        //新建线程处理城市列表
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -37,6 +39,7 @@ public class MyApplication extends Application{
             }
         }).start();
     }
+    //处理城市列表函数，取出城市名和城市序号
     private boolean prepareCityList() {
         myCityList = mycitydb.getAllCity();
         int i=0;
@@ -57,7 +60,9 @@ public class MyApplication extends Application{
         return myApplication;
     }
 
+    //处理城市数据库的函数
     private CityDB openCityDB() {
+        //声明路径名称
         String path = "/data"
                 + Environment.getDataDirectory().getAbsolutePath()
                 + File.separator + getPackageName()
@@ -66,6 +71,7 @@ public class MyApplication extends Application{
                 + CityDB.CITY_DB_NAME;
         File db = new File(path);
         Log.d(TAG,path);
+        //异常处理（数据库不存在）
         if (!db.exists()) {
             String pathfolder = "/data"
                     + Environment.getDataDirectory().getAbsolutePath()

@@ -52,6 +52,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
 
 
 
+    //创建界面的函数
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +77,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         initView();
     }
 
+    //城市选择按钮和更新按钮的更新响应事件
     @Override
     public void onClick(View view){
         if(view.getId() == R.id.title_city_manager){
@@ -100,6 +102,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    //重写获取SelectCity界面数据的处理函数
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 1 && resultCode == RESULT_OK) {
             newCityCode = data.getStringExtra("cityCode");
@@ -122,7 +125,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
     }
 
 
-
+    //从网络获取实时天气数据
     private void queryWeatherCode(String cityCode) {
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d("myWeather", address);
@@ -167,6 +170,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         }).start();
     }
 
+    //初始化界面，各信息设置为空
     void initView(){
         city_name_Tv = (TextView) findViewById(R.id.title_city_name);
         cityTv = (TextView) findViewById(R.id.content_city);
@@ -192,6 +196,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         windTv.setText("N/A");
     }
 
+    //将TodayWeather的数据更新到界面
     void updateTodayWeather(TodayWeather todayWeather){
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());

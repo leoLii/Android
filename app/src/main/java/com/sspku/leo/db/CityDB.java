@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.sspku.leo.bean.City;
 
+//城市列表数据库
 public class CityDB {
     public static final String CITY_DB_NAME = "city.db";
     private static final String CITY_TABLE_NAME = "city";
@@ -14,6 +15,7 @@ public class CityDB {
     public CityDB(Context context, String path) {
         db = context.openOrCreateDatabase(path, Context.MODE_PRIVATE, null);
     }
+    //将数据库中的数据读入List
     public List<City> getAllCity() {
         List<City> list = new ArrayList<City>();
         Cursor c = db.rawQuery("SELECT * from " + CITY_TABLE_NAME, null);

@@ -51,6 +51,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
     private ClearEditText mClearEditText;
 
 
+    //开始函数
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
     }
 
+    //返回按钮响应时间
     @Override
     public void onClick(View v){
         switch (v.getId()) {
@@ -76,6 +78,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         }
     }
 
+    //初始化城市列表，获取信息
     private void initCityList(){
         mCityList = new ArrayList<City>();
         new Thread(new Runnable() {
@@ -89,6 +92,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
     }
 
+    //利用cityDB类获取城市信息
     private boolean prepareCityArray() {
         mCityList = mCityDB.getAllCity();
 
@@ -100,6 +104,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         return true;
     }
 
+    //下面几个函数是直接从MyApplication复制过来的
     private CityDB openCityDB() {
         String path = "/data"
                 + Environment.getDataDirectory().getAbsolutePath()
@@ -141,6 +146,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         return new CityDB(this, path);
     }
 
+    //初始化界面，设置Adapter并显示ListView
     public void initViews(){
         Intent i = getIntent();
         i.setClass(this, MyActivity.class);
@@ -155,6 +161,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
         final ArrayAdapter<String>mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
         mListView.setAdapter(mAdapter);
+        //点击城市之后将数据传输到主界面，并更新CurrentCity，使得标题栏显示当前城市
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

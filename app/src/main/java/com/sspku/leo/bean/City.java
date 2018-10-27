@@ -1,5 +1,6 @@
 package com.sspku.leo.bean;
 
+//定义城市类
 public class City {
     private String province;
     private String city;

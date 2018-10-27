@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.StringReader;
 
+//更新天气使用的类
 public class TodayWeather {
     private String city;
     private String updatetime;
@@ -115,6 +116,8 @@ public class TodayWeather {
         this.wind_power = wind_power;
     }
 
+
+    //返回格式化字符串
     @Override
     public String toString(){
         return "TodayWeather{" +
@@ -133,6 +136,7 @@ public class TodayWeather {
                 '}';
     }
 
+    //处理XML文件的数据
     public static TodayWeather parseXML(String xmldata){
         TodayWeather todayWeather = null;
         int fengxiangCount=0;
