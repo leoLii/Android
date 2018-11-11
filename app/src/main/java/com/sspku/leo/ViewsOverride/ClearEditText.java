@@ -33,7 +33,7 @@ public class ClearEditText extends android.support.v7.widget.AppCompatEditText i
     }
 
     private void init() {
-        mClearDrawable = getResources().getDrawable(R.drawable.magnifying_glass);
+        mClearDrawable = getResources().getDrawable(R.drawable.cleartext32);
         //设置删除按钮的边界
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
         //默认隐藏删除按钮

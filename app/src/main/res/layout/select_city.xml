@@ -26,10 +26,10 @@
             android:layout_centerVertical="true"
             android:src="@drawable/base_action_bar_back_normal"
             />
+
         <ImageView
             android:layout_width="1.0dip"
             android:layout_height="40dip"
-            android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_toRightOf="@id/title_back"
             android:background="#A71717"

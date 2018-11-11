@@ -201,13 +201,86 @@ public class MyActivity extends Activity implements View.OnClickListener {
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());
         timeTv.setText(todayWeather.getUpdatetime()+ "发布");
-        humidityTv.setText("湿度："+todayWeather.getHumidity());
-        pmDataTv.setText(todayWeather.getPm25());
-        pmQualityTv.setText(todayWeather.getAir_quality());
+
+        if(todayWeather.getHumidity()!=null){
+            humidityTv.setText("湿度："+todayWeather.getHumidity());
+        }
+        else{
+            humidityTv.setText("无数据");
+        }
+        if(todayWeather.getPm25()!=null){
+            pmDataTv.setText(todayWeather.getPm25());
+        }
+        else{
+            pmDataTv.setText("无数据");
+        }
+        if(todayWeather.getAir_quality()!=null){
+            pmQualityTv.setText(todayWeather.getAir_quality());
+        }
+        else{
+            pmQualityTv.setText("无数据");
+        }
+        if(todayWeather.getBottom_temp()!=null&&todayWeather.getTop_temp()!=null){
+            temperatureTv.setText(todayWeather.getBottom_temp()+"~"+todayWeather.getTop_temp());
+        }
+        else{
+            temperatureTv.setText("无数据");
+        }
+        if(todayWeather.getType()!=null){
+            climateTv.setText(todayWeather.getType());
+        }
+        else{
+            climateTv.setText("无数据");
+        }
+        if(todayWeather.getWind_power()!=null){
+            windTv.setText("风力:"+todayWeather.getWind_power());
+        }
+        else{
+            windTv.setText("风力:"+"无数据");
+        }
         weekTv.setText(todayWeather.getDate());
-        temperatureTv.setText(todayWeather.getBottom_temp()+"~"+todayWeather.getTop_temp());
-        climateTv.setText(todayWeather.getType());
-        windTv.setText("风力:"+todayWeather.getWind_power());
+        String climate=todayWeather.getType();
+        if(climate.equals("暴雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_snowstorm);
+        if(climate.equals("暴雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_rainstorm);
+        if(climate.equals("大暴雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_rainstorm);
+        if(climate.equals("大雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_hugesnow);
+        if(climate.equals("大雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_hugerain);
+        if(climate.equals("多云"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_clouds);
+        if(climate.equals("雷阵雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_thunder);
+        if(climate.equals("雷阵雨冰雹"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_ice);
+        if(climate.equals("晴"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_sun);
+        if(climate.equals("沙尘暴"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_dust);
+        if(climate.equals("特大暴雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_hugerain);
+        if(climate.equals("雾"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_dust);
+        if(climate.equals("小雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_smallsnow);
+        if(climate.equals("小雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_smallrain);
+        if(climate.equals("阴"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_cloud);
+        if(climate.equals("雨夹雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_rainsnow);
+        if(climate.equals("阵雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_smallrain);
+        if(climate.equals("阵雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_smallsnow);
+        if(climate.equals("中雪"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_middlesnow);
+        if(climate.equals("中雨"))
+            weatherImg.setImageResource(R.drawable.biz_plugin_weather_middlerain);
+
         Toast.makeText(MyActivity.this,"更新成功！",Toast.LENGTH_SHORT).show();
     }
 

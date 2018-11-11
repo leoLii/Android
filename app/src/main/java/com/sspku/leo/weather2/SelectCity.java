@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -49,6 +51,8 @@ public class SelectCity extends Activity implements View.OnClickListener {
     private static String currentCityName = "北京";
     private static String currentCityCode = "101010100";
     private ClearEditText mClearEditText;
+    ArrayAdapter<String> mAdapter;
+
 
 
     //开始函数
@@ -159,7 +163,52 @@ public class SelectCity extends Activity implements View.OnClickListener {
         mBackBtn = (ImageView)findViewById(R.id.title_back);
         mBackBtn.setOnClickListener(this);
 
-        final ArrayAdapter<String>mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
+        mClearEditCity = (ClearEditText)findViewById(R.id.searchCity);
+        mClearEditCity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence!=null){
+
+                    ArrayList filterNameList = new ArrayList<String>();
+                    ArrayList filterNumList = new ArrayList<String>();
+
+                    if(TextUtils.isEmpty(charSequence)){
+                        for(City city:mCityList){
+                            filterNameList.add(city.getCity());
+                            filterNumList.add(city.getNumber());
+                        }
+                    }
+                    else{
+                        filterNameList.clear();
+                        filterNumList.clear();
+                        for(City city:mCityList){
+                            if(city.getCity().indexOf(charSequence.toString())!=-1){
+                                filterNameList.add(city.getCity());
+                                filterNumList.add(city.getNumber());
+                            }
+                        }
+                    }
+
+                    cityName = filterNameList;
+                    cityNum = filterNumList;
+                    mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
+
+                    mListView.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        mAdapter = new ArrayAdapter<String>(SelectCity.this, android.R.layout.simple_list_item_1, cityName);
+
         mListView.setAdapter(mAdapter);
         //点击城市之后将数据传输到主界面，并更新CurrentCity，使得标题栏显示当前城市
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -179,24 +228,26 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 finish();
             }
         });
-        mClearEditCity = (ClearEditText)findViewById(R.id.searchCity);
-        mClearEditCity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+    }
+
+    private void filterData(String filterstr){
+        ArrayList filterDataList = new ArrayList<City>();
+
+        if(TextUtils.isEmpty(filterstr)){
+            for(City city:mCityList){
+                filterDataList.add(city);
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //filterData(charSequence.toString());
-                mListView.setAdapter(mAdapter);
+        }
+        else{
+            filterDataList.clear();
+            for(City city:mCityList){
+                if(city.getCity().indexOf(filterstr.toString())!=-1){
+                    filterDataList.add(city);
+                }
             }
+        }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
     }
 
 
